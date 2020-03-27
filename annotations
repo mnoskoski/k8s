@@ -1,0 +1,12 @@
+Controlers:
+  services:
+    deployments:
+      replicaset:
+        pod:
+
+Kubernetes precisa apenas do containerd não precisa de todo o docker por exemplo.
+
+Rede:
+  CNI: 
+
+

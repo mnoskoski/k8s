@@ -1,0 +1,41 @@
+Pegando todo nodes do cluster
+  kubectl get node
+
+Pegando todos namespaces
+  kubectl get pods --all-namespaces
+
+Fazer a instalacao do completion do kubectl pra facilitar a administracao:
+  kubectl completion bash > /etc/bash_completion.d/kubectl
+
+Para fazer auto complte de outros parametros quando acionado o kubectl:
+  source <(kubectl completion bash) 
+  echo "source <(kubectl completion bash)" >> /root/.bashrc - insiro no profile do user de forma que eu nao precise mais executar quando logar
+
+listando mais informacoes sobre os pods dos namespaces:
+  kubectl get pods --all-namespaces -o wide(quer dizer, mais detalhes)
+  kubectl get namespaces 
+  kubectl get pods -n $(namespace_name)
+
+kube-system 
+  sao coisas do kubernetes que nao devemos mexer sem saber o que estamos fazendo 
+
+Criando o primeiro deploy: 
+  kubectl run nginx --image nginx
+  kubectl get deployment - kubectl describe deployment $(deployment_name)
+  kubectl get replicaset
+  kubectl get pods
+  kubectl describe replicaset $(replicaset_name)
+
+  kubectl run nginx --image nginx --port=80
+
+Scale of deployments
+  kubectl scale --replicas=5 deployment $(deployment_name)
+
+Remove deployment
+  kubectl delete deployments.apps $(deployment_name)
+
+Criando um service para expor meu deployment
+  kubect expose deployment $(deployment_name) --type=NodePort
+
+Aumentando os nos da aplicacao utilizando o nome do deployment
+  kubectl patch deployment -p '{"spec": {"replicas": 1}}' deploy_name
