@@ -39,3 +39,7 @@ Criando um service para expor meu deployment
 
 Aumentando os nos da aplicacao utilizando o nome do deployment
   kubectl patch deployment -p '{"spec": {"replicas": 1}}' deploy_name
+  kubectl scale --replicas=6 deployment deploy_name
+
+Para fazer uma manutancao (similar ao drain do swarm)
+  kubectl taint node $(node_name) key1=value1:NoExecute

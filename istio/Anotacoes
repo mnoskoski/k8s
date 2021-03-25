@@ -1,0 +1,8 @@
+Instalar Istio on Azure
+
+Referencia: https://docs.microsoft.com/pt-br/azure/aks/servicemesh-istio-install
+
+- comando para validar as configuracoes que serao aplciadas:
+  istioctl profile dump default
+
+-

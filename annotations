@@ -10,3 +10,12 @@ Rede:
   CNI: 
 
 
+Informacoes sobres deployments
+  - quando faco um novo deploy ele cria um novo replicaset
+
+
+kubectl label [pod | replicaset | deploy nodes] nome_do_recurso nome_label=value_label
+kubectl label [pod | replicaset | deploy nodes] nome_do_recurso nome_label=value_label --overwrite
+
+posso usar node_selector no node por exemplo e dizer no deployment que eu quero subir o pod somente nesses nos 
+
