@@ -1,0 +1,1 @@
+kubectl run nginx --image nginx --drey-run=client -o yaml > pod.yaml
