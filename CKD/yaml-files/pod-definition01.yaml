@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+  - name: ubuntu-sleeper
+    image: ubuntu-sleper
+    command: ["sleep2.0"]
+    args: ["10"]
+    env:
+      - name: APP_COLOR
+        value: "gren"
+  serviceAccount: dashboard-sa

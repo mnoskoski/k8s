@@ -1,1 +1,31 @@
-kubectl run nginx --image nginx --drey-run=client -o yaml > pod.yaml
+kubectl run nginx --image nginx --dry-run=client -o yaml > pod.yaml
+
+kubectl create -f replicaset-defition.yaml
+
+kubectl get replicaset
+
+kubectl delete replicaset myapp-replicaset
+
+kubectl replace -f replicaset-defition.yaml
+
+kubectl scale -replicas=6 -f replicas
+
+kubectl get all
+
+kubectl create deployment frontend --image nginx
+
+kubectl config set-context $(kubectl config current-context) dev
+
+docker run -e VAR_NAME=value simple-webapp-color
+
+command imperative: kubectl create configmap
+command declarative: kubectl create -f
+
+kubectl create configmap app-config --from-literal=APP_COLOR=blue
+
+ubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+
+kubectl delete pods <pod> --grace-period=0
+
+
+
