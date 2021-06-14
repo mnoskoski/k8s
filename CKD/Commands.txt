@@ -27,5 +27,36 @@ ubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-liter
 
 kubectl delete pods <pod> --grace-period=0
 
+k get sa
+k get serviceaccount
 
+k get secret
+k describe secret
 
+k run poA --image=ubuntu --limits='memory=20Mi,cpu=0.5' --dry-run=client 
+
+k taint nodes NODE_NAME key=value:taint-effect
+
+remover taint
+  k taint node master node-role.kubernetes.io/master:NoSchedule-
+
+Aplicar label no node:
+k label node node01 color=blue
+
+k get nodes NODE_NAME --show-labels
+
+k label nodes node01 color=blue
+
+| base64 --decode;
+
+Readness
+
+Liveness - restart no caso da aplicacao nao estar UP
+  livenessProbe:
+    httpGet:
+      path: /api/healths
+      port: 8080
+
+k get po --show-labels
+
+k rollout undo deployment/myapp-deploy
