@@ -8,7 +8,7 @@ kubectl delete replicaset myapp-replicaset
 
 kubectl replace -f replicaset-defition.yaml
 
-kubectl scale -replicas=6 -f replicas
+kubectl scale --replicas=6 -f replicas
 
 kubectl get all
 
@@ -60,3 +60,20 @@ Liveness - restart no caso da aplicacao nao estar UP
 k get po --show-labels
 
 k rollout undo deployment/myapp-deploy
+
+kubectl create -f deploy-definition.yml --record
+kubectl rollout status deploy/deploy-name
+kubectl rollout history deploy/deploy-name
+
+kubctl set image deployment/deploy-name nginx-container=nginx:1.12
+k rollout status deploy/deploy-name
+
+k get job
+k get cronjob
+
+
+k create job throw-dice-job --image=kodekloud/throw-dice --dry-run=client -o yaml > job.yaml
+k create cronjob throw-dice-cron-job --image=kodekloud/throw-dice --schedule="30 21 * * *"
+
+##create service Nodeport
+k create svc nodeport webapp-service --tcp=8080:8080 --node-port=30080  --dry-run=client -o yaml
