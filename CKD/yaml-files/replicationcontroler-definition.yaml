@@ -6,12 +6,12 @@ metadata:
     type: frontend
 spec:
   template:
-    (aqui nos colocamos o pod definition, porem sem o type )
+    #(aqui nos colocamos o pod definition, porem sem o kind )
     metadata:
       name: myapp-pod
       labels:
         app: myapp
-        type: front-end
+        type: frontend
     spec:
       containers:
       - name: nginx-container

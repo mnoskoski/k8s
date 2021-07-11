@@ -77,3 +77,12 @@ k create cronjob throw-dice-cron-job --image=kodekloud/throw-dice --schedule="30
 
 ##create service Nodeport
 k create svc nodeport webapp-service --tcp=8080:8080 --node-port=30080  --dry-run=client -o yaml
+
+kubectl get roles,rolebindings --namespace ingress-space
+
+## Listar as network Policies
+kubectl get networkpolicy
+k get netpol
+
+procurar nos pods by label
+k get pods -l name==PolicyName

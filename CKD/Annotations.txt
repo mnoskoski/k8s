@@ -13,3 +13,28 @@ When setup the cluster k8s automatically its create the follownamespaces:
 - kube-system
 - default
 - kube-public
+
+
+Kuberntes Services
+  - Enable the communication between components of k8s 
+    - NodePort
+    - ClusterIP
+    - LoadBalancer
+
+Kubernetes Ingress
+  TO deploy of ingress is necessary:
+   - deployment
+   - service
+   - configmap
+   - serviceaccount
+
+Ingress and Egress
+
+
+
+Network Policies
+  Kubernetes permit all traffic on the all pods by default
+  
+
+
+

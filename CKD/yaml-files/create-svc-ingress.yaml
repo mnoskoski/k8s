@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress
+  namespace: ingress-space
+spec:
+  ports:
+  - name: ingress
+    nodePort: 30080
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    name: nginx-ingress
+  type: NodePort
