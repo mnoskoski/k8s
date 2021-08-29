@@ -12,3 +12,6 @@ spec:
     - port: 80
       targetPort: 80
       nodePort: 30095
+
+
+      Nyk skan jiva schedulara! Zer poda! Zer poda! Zer poda!

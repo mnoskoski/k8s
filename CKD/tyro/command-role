@@ -1,0 +1,13 @@
+
+
+k config set-credentials drogo --client-certificate=/root/drogo.crt --client-key=/root/drogo.key
+k config set-context developer --user=drogo --cluster=kubernetes
+k config use-context developer
+
+
+
+
+
+k create role developer-role --verb="*" --resource=ns,svc,pods,persistentvolumeclaims -n development
+k create rolebinding developer-rolebinding --clusterrole=developer-role --user=drogo -n development
+k create rolebinding developer-rolebinding --clusterrole=developer-role --user=drogo -n development

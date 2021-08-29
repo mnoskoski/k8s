@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    db: mariadb
+  name: iron-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      db: mariadb
+  template:
+    metadata:
+      labels:
+        db: mariadb
+    spec:
+      volumes:
+      - name: db
+        emptyDir: {} 
+
+      containers:
+      - image: kodekloud/irondb:2.0
+        name: irondb
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "Braavo"
+        - name: MYSQL_DATABASE
+          value: "lychee"
+        - name: MYSQL_USER
+          value: "lychee"
+        - name: MYSQL_PASSWORD
+          value: "lychee"
+        volumeMounts:
+        - name: db
+          mountPath: /var/lib/mysql
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: iron-gallery
+  name: iron-gallery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: iron-gallery
+  strategy: {}
+  template:
+    metadata:
+  
+      labels:
+        run: iron-gallery
+    spec:
+      volumes:
+      - name: config
+        emptyDir: {}
+      - name: images
+        emptyDir: {}
+      containers:
+      - image: kodekloud/irongallery:2.0
+        name: irongallery
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/nginx/html/data
+        - name: images
+          mountPath: /usr/share/nginx/html/uploads
+        resources:
+          limits:
+            memory: "100Mi"
+            cpu: "50m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    db: mariadb
+  name: iron-db-service
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    db: mariadb
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: iron-gallery
+  name: iron-gallery-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 30099
+  selector:
+    run: iron-gallery
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: iron-gallery-firewall
+spec:
+  podSelector:
+    matchLabels:
+      db: mariadb
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          run: iron-gallery
+    ports:
+    - protocol: TCP
+      port: 3306
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: iron-gallery-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: "iron-gallery-braavos.com"
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: iron-gallery-service
+          servicePort: 80

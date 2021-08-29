@@ -12,7 +12,7 @@ Replication Controler: Responsable by garant that in case fail of pod a new pod 
 When setup the cluster k8s automatically its create the follownamespaces:
 - kube-system
 - default
-- kube-public
+- kub-public
 
 
 Kuberntes Services

@@ -27,13 +27,17 @@ ubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-liter
 
 kubectl delete pods <pod> --grace-period=0
 
+k set serviceaccount deployment
+
 k get sa
 k get serviceaccount
 
 k get secret
 k describe secret
 
-k run poA --image=ubuntu --limits='memory=20Mi,cpu=0.5' --dry-run=client 
+k run po --image=ubuntu --limits='memory=20Mi,cpu=0.5' --dry-run=client 
+k run nginx --image=nginx --command 'sleep 3600' --dry-run=client -o yaml
+
 
 k taint nodes NODE_NAME key=value:taint-effect
 
@@ -71,9 +75,9 @@ k rollout status deploy/deploy-name
 k get job
 k get cronjob
 
-
+##JOBS-CRONJOBS
 k create job throw-dice-job --image=kodekloud/throw-dice --dry-run=client -o yaml > job.yaml
-k create cronjob throw-dice-cron-job --image=kodekloud/throw-dice --schedule="30 21 * * *"
+k create cronjob throw-dice-cron-job --image=kodekloud/throw-dice --schedule="*/1 * * * *" --dry-run=client -o yaml
 
 ##create service Nodeport
 k create svc nodeport webapp-service --tcp=8080:8080 --node-port=30080  --dry-run=client -o yaml
@@ -86,3 +90,4 @@ k get netpol
 
 procurar nos pods by label
 k get pods -l name==PolicyName
+k get po --show-labels
